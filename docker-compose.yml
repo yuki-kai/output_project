@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  # webアプリケーションのコンテナ
+  app:
+    build:
+      context: .
+      dockerfile: ./infra/app/Dockerfile
+      target: php83
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+
+  # webサーバーのコンテナ
+  web:
+    build:
+      context: .
+      dockerfile: ./infra/web/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - ./:/var/www
+
+  # dbサーバーのコンテナ
+  db:
+    build:
+      context: .
+      dockerfile: ./infra/db/Dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: output_project
+      MYSQL_USER: output_project_user
+      MYSQL_PASSWORD: output_project_password
+      MYSQL_ROOT_PASSWORD: output_project_password
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./infra/db/data:/var/lib/mysql
+      - ./infra/db/my.conf:/etc/mysql/conf.d/my.conf
+      - output-project-db-volume:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - db
+    environment:
+      - PMA_HOSTS=db
+      - PMA_USER=output_project_user
+      - PMA_PASSWORD=output_project_password
+    ports:
+      - "3001:80"
+
+volumes:
+  output-project-db-volume:
