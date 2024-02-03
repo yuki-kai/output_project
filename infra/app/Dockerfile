@@ -1,4 +1,4 @@
-FROM php:8.3-fpm as php83
+FROM php:8.2-fpm as php82
 
 ENV TZ=Asia/Tokyo
 

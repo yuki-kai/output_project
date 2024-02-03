@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./infra/app/Dockerfile
-      target: php83
+      target: php82
     ports:
       - "5173:5173"
     volumes:
