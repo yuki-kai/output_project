@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { login } from '../../api';
+import { registerUser } from '../../api';
 import { GuestRoute } from '../../Layouts/GuestRoute';
 
-export const Login = () => {
+export const RegisterUser = () => {
     const navigate = useNavigate();
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
     const onSubmit = async (event: any) => {
         event.preventDefault();
-        await login(email, password);
-        navigate('/dashboard');
+        await registerUser(name, email, password, passwordConfirmation);
+        navigate('/login');
     };
 
     return (
@@ -21,9 +23,15 @@ export const Login = () => {
                     <div className="row justify-content-center">
                         <div className="col-md-4">
                             <div className="card mb-3">
-                                <div className="card-header">Login</div>
+                                <div className="card-header">RegisterUser</div>
                                 <div className="card-body">
                                     <div className="form-group">
+                                        <input
+                                            className="form-control mb-3"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            placeholder="名前"
+                                        />
                                         <input
                                             type="email"
                                             className="form-control mb-3"
@@ -33,17 +41,26 @@ export const Login = () => {
                                         />
                                         <input
                                             type="password"
+                                            name="password"
                                             className="form-control mb-3"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             placeholder="パスワード"
                                         />
+                                        <input
+                                            type="password"
+                                            name="password_confirmation"
+                                            className="form-control mb-3"
+                                            value={passwordConfirmation}
+                                            onChange={(e) => setPasswordConfirmation(e.target.value)}
+                                            placeholder="パスワード(確認)"
+                                        />
                                     </div>
                                 </div>
-                                <button  type="submit" className="btn btn-primary">ログイン</button>
+                                <button  type="submit" className="btn btn-primary">新規作成</button>
                             </div>
                             <div className="text-center">
-                                <Link to="/registerUser">新規作成</Link>
+                                <Link to="/login">ログイン</Link>
                             </div>
                         </div>
                     </div>

@@ -2,8 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+Route::post('/registerUser', [RegisteredUserController::class, 'registerUser'])->name('registerUser');
 Route::post('/login', [AuthenticatedSessionController::class, 'login'])->name('login');
 Route::get('/checkAuthenticated', [AuthenticatedSessionController::class, 'checkAuthenticated'])->name('checkAuthenticated');
 Route::middleware('auth')->post('/logout', [AuthenticatedSessionController::class, 'logout'])->name('logout');
