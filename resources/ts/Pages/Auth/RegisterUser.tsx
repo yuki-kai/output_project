@@ -1,25 +1,21 @@
-import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from '../../api';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { GuestRoute } from '../../Layouts/GuestRoute';
+import { AuthUser } from '../../types/user';
+import { registerUser } from '../../api';
 
 export const RegisterUser = () => {
+    const { register, handleSubmit } = useForm<AuthUser>();
     const navigate = useNavigate();
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState("");
-
-    const onSubmit = async (event: any) => {
-        event.preventDefault();
-        await registerUser(name, email, password, passwordConfirmation);
+    const onSubmit: SubmitHandler<AuthUser> = async (user) => {
+        await registerUser(user);
         navigate('/login');
     };
 
     return (
         <GuestRoute>
             <div className="container mt-5">
-                <form onSubmit={(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row justify-content-center">
                         <div className="col-md-4">
                             <div className="card mb-3">
@@ -28,32 +24,23 @@ export const RegisterUser = () => {
                                     <div className="form-group">
                                         <input
                                             className="form-control mb-3"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
                                             placeholder="名前"
+                                            { ...register('name') }
                                         />
                                         <input
-                                            type="email"
                                             className="form-control mb-3"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
                                             placeholder="メールアドレス"
+                                            { ...register('email') }
                                         />
                                         <input
-                                            type="password"
-                                            name="password"
                                             className="form-control mb-3"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
                                             placeholder="パスワード"
+                                            { ...register('password') }
                                         />
                                         <input
-                                            type="password"
-                                            name="password_confirmation"
                                             className="form-control mb-3"
-                                            value={passwordConfirmation}
-                                            onChange={(e) => setPasswordConfirmation(e.target.value)}
-                                            placeholder="パスワード(確認)"
+                                            placeholder="パスワード(確認用)"
+                                            { ...register('password_confirmation') }
                                         />
                                     </div>
                                 </div>

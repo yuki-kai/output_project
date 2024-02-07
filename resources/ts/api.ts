@@ -1,15 +1,17 @@
 import axios from 'axios';
+import { AuthUser } from './types/user';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.baseURL = import.meta.env.VITE_APP_URL;
 
 // ユーザ新規作成API
-export const registerUser = async (name: string, email: string, password: string, password_confirmation: string): Promise<void> => {
-    await axios.post("/api/registerUser",{ name, email, password, password_confirmation });
+export const registerUser = async (user: AuthUser): Promise<void> => {
+    await axios.post("/api/registerUser", { ...user });
     return;
 };
 
-export const login = async (email: string, password: string): Promise<void> => {
-    await axios.post("/api/login",{ email, password });
+// ログインAPI
+export const login = async (user: AuthUser): Promise<void> => {
+    await axios.post("/api/login", { ...user });
     return;
 };
 

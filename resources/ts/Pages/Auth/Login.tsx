@@ -1,23 +1,21 @@
-import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { login } from '../../api';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { GuestRoute } from '../../Layouts/GuestRoute';
+import { AuthUser } from '../../types/user';
+import { login } from '../../api';
 
 export const Login = () => {
+    const { register, handleSubmit } = useForm<AuthUser>();
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const onSubmit = async (event: any) => {
-        event.preventDefault();
-        await login(email, password);
+    const onSubmit: SubmitHandler<AuthUser> = async (loginUser) => {
+        await login(loginUser);
         navigate('/dashboard');
     };
 
     return (
         <GuestRoute>
             <div className="container mt-5">
-                <form onSubmit={(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row justify-content-center">
                         <div className="col-md-4">
                             <div className="card mb-3">
@@ -25,18 +23,14 @@ export const Login = () => {
                                 <div className="card-body">
                                     <div className="form-group">
                                         <input
-                                            type="email"
                                             className="form-control mb-3"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
                                             placeholder="メールアドレス"
+                                            { ...register('email') }
                                         />
                                         <input
-                                            type="password"
                                             className="form-control mb-3"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
                                             placeholder="パスワード"
+                                            {...register('password')}
                                         />
                                     </div>
                                 </div>
