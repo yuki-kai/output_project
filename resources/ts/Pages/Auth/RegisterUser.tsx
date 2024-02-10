@@ -2,10 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { GuestRoute } from '../../Layouts/GuestRoute';
 import { AuthUser } from '../../types/user';
+import { TextInput } from "../../Components/TextInput";
 import { registerUser } from '../../api';
 
 export const RegisterUser = () => {
-    const { register, handleSubmit } = useForm<AuthUser>();
+    const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: 'onSubmit' });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (user) => {
         await registerUser(user);
@@ -22,25 +23,37 @@ export const RegisterUser = () => {
                                 <div className="card-header">RegisterUser</div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <input
-                                            className="form-control mb-3"
+                                        <TextInput
+                                            name="name"
+                                            control={control}
                                             placeholder="名前"
-                                            { ...register('name') }
+                                            rules={{
+                                                required: { value: true, message: '入力必須です' },
+                                            }}
                                         />
-                                        <input
-                                            className="form-control mb-3"
+                                        <TextInput
+                                            name="email"
+                                            control={control}
                                             placeholder="メールアドレス"
-                                            { ...register('email') }
+                                            rules={{
+                                                required: { value: true, message: '入力必須です' },
+                                            }}
                                         />
-                                        <input
-                                            className="form-control mb-3"
+                                        <TextInput
+                                            name="password"
+                                            control={control}
                                             placeholder="パスワード"
-                                            { ...register('password') }
+                                            rules={{
+                                                required: { value: true, message: '入力必須です' },
+                                            }}
                                         />
-                                        <input
-                                            className="form-control mb-3"
+                                        <TextInput
+                                            name="password_confirmation"
+                                            control={control}
                                             placeholder="パスワード(確認用)"
-                                            { ...register('password_confirmation') }
+                                            rules={{
+                                                required: { value: true, message: '入力必須です' },
+                                            }}
                                         />
                                     </div>
                                 </div>

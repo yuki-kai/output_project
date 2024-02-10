@@ -2,10 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { GuestRoute } from '../../Layouts/GuestRoute';
 import { AuthUser } from '../../types/user';
+import { TextInput } from "../../Components/TextInput";
 import { login } from '../../api';
 
 export const Login = () => {
-    const { register, handleSubmit } = useForm<AuthUser>();
+    const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: 'onSubmit' });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (loginUser) => {
         await login(loginUser);
@@ -22,15 +23,21 @@ export const Login = () => {
                                 <div className="card-header">Login</div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <input
-                                            className="form-control mb-3"
+                                        <TextInput
+                                            name="email"
+                                            control={control}
                                             placeholder="メールアドレス"
-                                            { ...register('email') }
+                                            rules={{
+                                                required: { value: true, message: '入力必須です' },
+                                            }}
                                         />
-                                        <input
-                                            className="form-control mb-3"
+                                        <TextInput
+                                            name="password"
+                                            control={control}
                                             placeholder="パスワード"
-                                            {...register('password')}
+                                            rules={{
+                                                required: { value: true, message: '入力必須です' },
+                                            }}
                                         />
                                     </div>
                                 </div>
