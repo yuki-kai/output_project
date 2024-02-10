@@ -11,6 +11,7 @@ export const TextInput = <T extends FieldValues>(props: InputItemComponentProps<
         <div className="mb-3">
             <input
                 { ...field }
+                value={field.value ?? ""}
                 className="form-control"
                 placeholder={placeholder}
             />
