@@ -12,7 +12,31 @@ jobs:
           name: php test
           command: vendor/bin/phpunit
 
+  deploy:
+    docker:
+      - image: cimg/php:8.2-node
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "${KEY_FINGERPRINT}"
+      - run:
+          name: deploy
+          comaand: ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com
+          command: |
+            git pull origin main && \
+              composer install -n --no-dev --prefer-dist && \
+              npm ci && \
+              npm run build:prod && \
+              php artisan migrate --force && \
+              php artisan config:cache
+
 workflows:
-  test-app:
+  build_deploy:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
