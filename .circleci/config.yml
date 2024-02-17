@@ -39,6 +39,7 @@ jobs:
               npm run build:prod && \
               php artisan migrate --force && \
               php artisan config:cache
+          no_output_timeout: 60m
       - run:
           name: revoke ssh rule
           command: |
