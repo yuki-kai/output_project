@@ -20,6 +20,9 @@ jobs:
           fingerprints:
             - "${KEY_FINGERPRINT}"
       - run:
+          name: create ssh rule
+          command: aws ec2 authorize-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${HOST_NAME}/32
+      - run:
           name: deploy
           command: |
             ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com "cd output_project && \
@@ -29,6 +32,9 @@ jobs:
               npm run build:prod && \
               php artisan migrate --force && \
               php artisan config:cache"
+      - run:
+          name: revoke ssh rule
+          command: aws ec2 revoke-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${IP}/32
 
 workflows:
   build_deploy:
