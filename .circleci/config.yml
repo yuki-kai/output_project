@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@2.0.0
+
 jobs:
   build:
     docker:
@@ -19,7 +23,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "${KEY_FINGERPRINT}"
-      - run: sudo pip install awscli
       - run:
           name: create ssh rule
           command: aws ec2 authorize-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${HOST_NAME}/32
