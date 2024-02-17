@@ -20,6 +20,7 @@ jobs:
     docker:
       - image: cimg/php:8.2-node
     steps:
+      - aws-cli/install
       - add_ssh_keys:
           fingerprints:
             - "${KEY_FINGERPRINT}"
