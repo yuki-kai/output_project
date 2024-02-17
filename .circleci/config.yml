@@ -32,13 +32,13 @@ jobs:
       - run:
           name: deploy
           command: |
-            ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com "cd output_project && \
+            ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com && \
               git pull origin main && \
               composer install -n --no-dev --prefer-dist && \
               npm ci && \
               npm run build:prod && \
               php artisan migrate --force && \
-              php artisan config:cache"
+              php artisan config:cache
       - run:
           name: revoke ssh rule
           command: |
