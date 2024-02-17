@@ -26,7 +26,7 @@ jobs:
             - "${KEY_FINGERPRINT}"
       - run:
           name: create ssh rule
-          command: aws ec2 authorize-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${HOST_NAME}
+          command: aws ec2 authorize-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${HOST_NAME}\32
       - run:
           name: deploy
           command: |
@@ -39,7 +39,7 @@ jobs:
               php artisan config:cache"
       - run:
           name: revoke ssh rule
-          command: aws ec2 revoke-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${HOST_NAME}
+          command: aws ec2 revoke-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${HOST_NAME}\32
 
 workflows:
   build_deploy:
