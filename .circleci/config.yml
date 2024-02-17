@@ -29,25 +29,25 @@ jobs:
           command: |
             IP=`curl -s ifconfig.me` && \
               aws ec2 authorize-security-group-ingress --group-id ${SECURITY_GROUP} --protocol tcp --port 22 --cidr ${IP}/32
-      # - run: ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com "pwd"
-      # - run: cd /var/www/output_project/
-      # - run: git pull origin main
-      # - run: composer install -n --no-dev --prefer-dist
-      # - run: npm ci
-      # - run: npm run build:prod
-      # - run: php artisan migrate --force
-      # - run: php artisan config:cache
-      - run:
-          name: deploy
-          command: |
-            ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com "cd /var/www/output_project/ && \
-              git pull origin main && \
-              npm cache clean --force && \
-              composer install -n --no-dev --prefer-dist && \
-              npm ci && \
-              npm run build:prod && \
-              php artisan migrate --force && \
-              php artisan config:cache"
+      - run: ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com "cd /var/www/output_project/"
+      - run: git pull origin main
+      - run: npm cache clean --force
+      - run: composer install -n --no-dev --prefer-dist
+      - run: npm ci
+      - run: npm run build:prod
+      - run: php artisan migrate --force
+      - run: php artisan config:cache
+      # - run:
+      #     name: deploy
+      #     command: |
+      #       ssh -o StrictHostKeyChecking=no -t ec2-user@ec2-${HOST_NAME}.ap-northeast-1.compute.amazonaws.com "cd /var/www/output_project/ && \
+      #         git pull origin main && \
+      #
+      #         composer install -n --no-dev --prefer-dist && \
+      #         npm ci && \
+      #         npm run build:prod && \
+      #         php artisan migrate --force && \
+      #         php artisan config:cache"
       - run:
           name: revoke ssh rule
           command: |
