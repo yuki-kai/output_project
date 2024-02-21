@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthUser } from './types/user';
+import { AuthUser } from 'ts/types/user';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.baseURL = import.meta.env.VITE_APP_URL;
 

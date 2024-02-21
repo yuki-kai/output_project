@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { GuestRoute } from '../../Layouts/GuestRoute';
-import { AuthUser } from '../../types/user';
-import { TextInput } from "../../Components/TextInput";
-import { login } from '../../api';
+import { GuestRoute } from 'ts/Layouts/GuestRoute';
+import { AuthUser } from 'ts/types/user';
+import { TextInput } from "ts/Components/TextInput";
+import { login } from 'ts/api';
 
 export const Login = () => {
     const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: 'onSubmit' });

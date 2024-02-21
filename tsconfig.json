@@ -17,9 +17,9 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
-        "baseUrl": "./resources/app",
+        "baseUrl": "./",
         "paths": {
-            "@/*": ["./*"]
+            "ts/*": ["resources/ts/*"]
         }
     },
     "lib": ["WebWorker"]
