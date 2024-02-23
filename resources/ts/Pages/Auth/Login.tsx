@@ -1,16 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { GuestRoute } from 'ts/Layouts/GuestRoute';
-import { AuthUser } from 'ts/types/user';
+import { useForm, SubmitHandler } from "react-hook-form";
+import { GuestRoute } from "ts/Layouts/GuestRoute";
+import { AuthUser } from "ts/types/user";
 import { TextInput } from "ts/Components/TextInput";
-import { login } from 'ts/api';
+import { login } from "ts/api";
 
 export const Login = () => {
-    const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: 'onSubmit' });
+    const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: "onSubmit" });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (loginUser) => {
         await login(loginUser);
-        navigate('/dashboard');
+        navigate("/dashboard");
     };
 
     return (
@@ -28,7 +28,7 @@ export const Login = () => {
                                             control={control}
                                             placeholder="メールアドレス"
                                             rules={{
-                                                required: { value: true, message: '入力必須です' },
+                                                required: { value: true, message: "入力必須です" },
                                             }}
                                         />
                                         <TextInput
@@ -36,7 +36,7 @@ export const Login = () => {
                                             control={control}
                                             placeholder="パスワード"
                                             rules={{
-                                                required: { value: true, message: '入力必須です' },
+                                                required: { value: true, message: "入力必須です" },
                                             }}
                                         />
                                     </div>

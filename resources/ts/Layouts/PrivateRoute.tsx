@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../Pages/Auth/useAuth";
 import { Loading } from "../Components/Loading";

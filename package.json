@@ -4,9 +4,9 @@
     "scripts": {
         "lint": "eslint --ext .tsx,.ts,.js resources/",
         "dev": "vite --host",
-        "build": "vite build",
-        "build:dev": "vite build --mode development",
-        "build:prod": "vite build --mode production"
+        "build": "npm run lint && vite build",
+        "build:dev": "npm run lint && vite build --mode development",
+        "build:prod": "npm run lint && vite build --mode production"
     },
     "devDependencies": {
         "@types/react": "^18.2.48",

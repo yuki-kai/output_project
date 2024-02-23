@@ -1,4 +1,4 @@
-import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
+import { FieldValues, useController, UseControllerProps } from "react-hook-form";
 
 type InputItemComponentProps<T extends FieldValues> = UseControllerProps<T> & {placeholder?: string}
 
@@ -15,7 +15,7 @@ export const TextInput = <T extends FieldValues>(props: InputItemComponentProps<
                 className="form-control"
                 placeholder={placeholder}
             />
-            <small className="text-danger">{error ? error.message : ''}</small>
+            <small className="text-danger">{error ? error.message : ""}</small>
         </div>
     );
 };

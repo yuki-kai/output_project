@@ -1,12 +1,12 @@
-import { PrivateRoute } from 'ts/Layouts/PrivateRoute';
-import { logout } from 'ts/api';
+import { PrivateRoute } from "ts/Layouts/PrivateRoute";
+import { logout } from "ts/api";
 import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
     const navigate = useNavigate();
     const handleLogout = async () => {
         await logout();
-        navigate('/login');
+        navigate("/login");
     };
     return (
         <PrivateRoute>
