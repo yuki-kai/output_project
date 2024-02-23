@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { checkAuthenticated } from "../../api";
 
 export const useAuth = () => {

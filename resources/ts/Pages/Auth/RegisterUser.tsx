@@ -1,16 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { GuestRoute } from 'ts/Layouts/GuestRoute';
-import { AuthUser } from 'ts/types/user';
+import { useForm, SubmitHandler } from "react-hook-form";
+import { GuestRoute } from "ts/Layouts/GuestRoute";
+import { AuthUser } from "ts/types/user";
 import { TextInput } from "ts/Components/TextInput";
-import { registerUser } from 'ts/api';
+import { registerUser } from "ts/api";
 
 export const RegisterUser = () => {
-    const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: 'onSubmit' });
+    const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: "onSubmit" });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (user) => {
         await registerUser(user);
-        navigate('/login');
+        navigate("/login");
     };
 
     return (
@@ -28,7 +28,7 @@ export const RegisterUser = () => {
                                             control={control}
                                             placeholder="名前"
                                             rules={{
-                                                required: { value: true, message: '入力必須です' },
+                                                required: { value: true, message: "入力必須です" },
                                             }}
                                         />
                                         <TextInput
@@ -36,7 +36,7 @@ export const RegisterUser = () => {
                                             control={control}
                                             placeholder="メールアドレス"
                                             rules={{
-                                                required: { value: true, message: '入力必須です' },
+                                                required: { value: true, message: "入力必須です" },
                                             }}
                                         />
                                         <TextInput
@@ -44,7 +44,7 @@ export const RegisterUser = () => {
                                             control={control}
                                             placeholder="パスワード"
                                             rules={{
-                                                required: { value: true, message: '入力必須です' },
+                                                required: { value: true, message: "入力必須です" },
                                             }}
                                         />
                                         <TextInput
@@ -52,7 +52,7 @@ export const RegisterUser = () => {
                                             control={control}
                                             placeholder="パスワード(確認用)"
                                             rules={{
-                                                required: { value: true, message: '入力必須です' },
+                                                required: { value: true, message: "入力必須です" },
                                             }}
                                         />
                                     </div>
