@@ -75,6 +75,13 @@ class LoginRequest extends FormRequest
         ]);
     }
 
+    public function messages()
+    {
+        return [
+            'email.email' => 'メールアドレスの形式が正しくありません',
+        ];
+    }
+
     /**
      * Get the rate limiting throttle key for the request.
      */

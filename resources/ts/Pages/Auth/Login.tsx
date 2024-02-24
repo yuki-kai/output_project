@@ -6,11 +6,16 @@ import { TextInput } from "ts/Components/TextInput";
 import { login } from "ts/api";
 
 export const Login = () => {
-    const { control, handleSubmit } = useForm<AuthUser>({ reValidateMode: "onSubmit" });
+    const { control, handleSubmit, setError } = useForm<AuthUser>({ reValidateMode: "onSubmit" });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (loginUser) => {
-        await login(loginUser);
-        navigate("/dashboard");
+        login(loginUser).then(() => {
+            navigate("/dashboard");
+        }).catch((e) => {
+            for (const [key, value] of Object.entries(e.response.data.errors)) {
+                setError(key as keyof AuthUser, { type: "required", message: value as string })
+            }
+        });
     };
 
     return (
