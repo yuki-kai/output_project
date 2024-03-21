@@ -23,7 +23,7 @@ export const Login = () => {
             <div className="container mt-5">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row justify-content-center">
-                        <div className="col-md-4">
+                        <div className="col-md-6 col-lg-4">
                             <div className="card mb-3">
                                 <div className="card-header">Login</div>
                                 <div className="card-body">
