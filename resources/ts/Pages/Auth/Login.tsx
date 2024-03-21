@@ -33,7 +33,7 @@ export const Login = () => {
                                             control={control}
                                             placeholder="メールアドレス"
                                             rules={{
-                                                required: { value: true, message: "入力必須です" },
+                                                required: { value: true, message: "メールアドレスは必ず指定してください。" },
                                             }}
                                         />
                                         <TextInput
@@ -41,7 +41,7 @@ export const Login = () => {
                                             control={control}
                                             placeholder="パスワード"
                                             rules={{
-                                                required: { value: true, message: "入力必須です" },
+                                                required: { value: true, message: "パスワードは必ず指定してください。" },
                                             }}
                                         />
                                     </div>
