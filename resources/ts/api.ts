@@ -11,8 +11,8 @@ export const registerUser = async (user: AuthUser): Promise<void> => {
 
 // ログインAPI
 export const login = async (user: AuthUser): Promise<void> => {
-    await axios.post("/api/login", { ...user });
-    return;
+    const response = await axios.post("/api/login", { ...user });
+    return response.data;
 };
 
 export const checkAuthenticated = async (): Promise<{ checked: boolean, isAuthenticated:boolean }> => {
@@ -21,6 +21,6 @@ export const checkAuthenticated = async (): Promise<{ checked: boolean, isAuthen
 };
 
 export const logout = async (): Promise<void> => {
-    await axios.post("/api/logout")
-    return;
+    const response = await axios.post("/api/logout")
+    return response.data;
 };

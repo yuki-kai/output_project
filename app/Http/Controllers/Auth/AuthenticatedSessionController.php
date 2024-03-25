@@ -16,7 +16,7 @@ class AuthenticatedSessionController extends Controller
     public function login(LoginRequest $request) {
         $request->authenticate();
         $request->session()->regenerate();
-        return response()->json('authorized', Response::HTTP_OK);
+        return response()->json(['message' => Auth::user()->name . "でログインしました"], Response::HTTP_OK);
     }
 
     public function checkAuthenticated(Request $request) {
@@ -30,6 +30,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return response()->json('authorized', Response::HTTP_OK);
+        return response()->json(['message' => "ログアウトしました"], Response::HTTP_OK);
     }
 }

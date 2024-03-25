@@ -1,16 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { GuestRoute } from "ts/Layouts/GuestRoute";
 import { AuthUser } from "ts/types/user";
 import { TextInput } from "ts/Components/TextInput";
 import { login } from "ts/api";
+import { FlashMessage } from "ts/Components/FlashMessage";
 
 export const Login = () => {
+    const location = useLocation()
+    const [message, setMessage] = useState<{ message: string }>(location.state as {message: string});
     const { control, handleSubmit, setError } = useForm<AuthUser>({ reValidateMode: "onSubmit" });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (loginUser) => {
-        login(loginUser).then(() => {
-            navigate("/dashboard");
+        login(loginUser).then((res: any) => {
+            setMessage(res.message);
+            navigate("/dashboard", { state: { message: res.message }});
         }).catch((e) => {
             for (const [key, value] of Object.entries(e.response.data.errors)) {
                 setError(key as keyof AuthUser, { type: "required", message: value as string })
@@ -20,6 +25,7 @@ export const Login = () => {
 
     return (
         <GuestRoute>
+            { message && <FlashMessage>{ message.message }</FlashMessage> }
             <div className="container mt-5">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row justify-content-center">
