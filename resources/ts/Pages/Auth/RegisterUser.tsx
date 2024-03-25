@@ -23,8 +23,8 @@ export const RegisterUser = () => {
             <div className="container mt-5">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row justify-content-center">
-                        <div className="col-md-6 col-lg-4">
-                            <div className="card mb-3">
+                        <div className="col-md-6 col-lg-4 mt-5">
+                            <div className="card">
                                 <div className="card-header">RegisterUser</div>
                                 <div className="card-body">
                                     <div className="form-group">
@@ -64,7 +64,7 @@ export const RegisterUser = () => {
                                 </div>
                                 <button  type="submit" className="btn btn-primary">新規作成</button>
                             </div>
-                            <div className="text-center">
+                            <div className="text-center mt-3">
                                 <Link to="/login">ログイン</Link>
                             </div>
                         </div>
