@@ -28,3 +28,7 @@ export const logout = async (): Promise<Response> => {
     const response = await axios.post("/api/logout")
     return response.data;
 };
+
+export const sendEmailVerification = async (): Promise<void> => {
+    await axios.post("/email/verification-notification")
+};

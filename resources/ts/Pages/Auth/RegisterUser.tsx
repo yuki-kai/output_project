@@ -10,7 +10,7 @@ export const RegisterUser = () => {
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (user) => {
         registerUser(user).then(() => {
-            navigate("/login");
+            navigate("/registeredUser");
         }).catch((e) => {
             for (const [key, value] of Object.entries(e.response.data.errors)) {
                 setError(key as keyof AuthUser, { type: "required", message: value as string })
