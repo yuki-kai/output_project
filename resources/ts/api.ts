@@ -9,8 +9,12 @@ export const registerUser = async (user: AuthUser): Promise<void> => {
     return;
 };
 
+type Response = {
+    message: string;
+};
+
 // ログインAPI
-export const login = async (user: AuthUser): Promise<void> => {
+export const login = async (user: AuthUser): Promise<Response> => {
     const response = await axios.post("/api/login", { ...user });
     return response.data;
 };
@@ -20,7 +24,7 @@ export const checkAuthenticated = async (): Promise<{ checked: boolean, isAuthen
     return response.data;
 };
 
-export const logout = async (): Promise<void> => {
+export const logout = async (): Promise<Response> => {
     const response = await axios.post("/api/logout")
     return response.data;
 };

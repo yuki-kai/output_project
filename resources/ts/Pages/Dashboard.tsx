@@ -5,11 +5,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FlashMessage } from "ts/Components/FlashMessage";
 
 export const Dashboard = () => {
-    const location = useLocation()
-    const [message, setMessage] = useState<{ message: string }>(location.state as {message: string});
+    const [message, ] = useState<{ message: string }>(useLocation().state);
     const navigate = useNavigate();
     const handleLogout = async () => {
-        const response: any = await logout();
+        const response: { message: string } = await logout();
         navigate("/login",  { state: { message: response.message }});
     };
     return (

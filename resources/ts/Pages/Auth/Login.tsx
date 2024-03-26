@@ -8,14 +8,13 @@ import { login } from "ts/api";
 import { FlashMessage } from "ts/Components/FlashMessage";
 
 export const Login = () => {
-    const location = useLocation()
-    const [message, setMessage] = useState<{ message: string }>(location.state as {message: string});
+    const [message, setMessage] = useState<{ message: string }>(useLocation().state);
     const { control, handleSubmit, setError } = useForm<AuthUser>({ reValidateMode: "onSubmit" });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<AuthUser> = async (loginUser) => {
-        login(loginUser).then((res: any) => {
-            setMessage(res.message);
-            navigate("/dashboard", { state: { message: res.message }});
+        login(loginUser).then((response: { message: string }) => {
+            setMessage({ message: response.message });
+            navigate("/dashboard", { state: { message: response.message }});
         }).catch((e) => {
             for (const [key, value] of Object.entries(e.response.data.errors)) {
                 setError(key as keyof AuthUser, { type: "required", message: value as string })
