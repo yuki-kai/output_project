@@ -54,5 +54,12 @@ services:
     ports:
       - "3001:80"
 
+  mail:
+    image: axllent/mailpit:v1.8
+    container_name: mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
+
 volumes:
   output-project-db-volume:
