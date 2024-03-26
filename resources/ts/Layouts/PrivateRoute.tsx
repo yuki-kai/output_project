@@ -18,5 +18,5 @@ export const PrivateRoute = ({ children }: Props) => {
         return <>{children}</>;
     }
 
-    return <Navigate to="/" />;
+    return <Navigate to="/registeredUser" />
 };

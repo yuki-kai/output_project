@@ -20,7 +20,7 @@ class AuthenticatedSessionController extends Controller
     }
 
     public function checkAuthenticated(Request $request) {
-        if (Auth::user()) {
+        if (Auth::user() && $request->user()->hasVerifiedEmail()) {
             return response()->json(['isAuthenticated' => true], Response::HTTP_OK);
         }
         return response()->json(['isAuthenticated' => false], Response::HTTP_OK);
