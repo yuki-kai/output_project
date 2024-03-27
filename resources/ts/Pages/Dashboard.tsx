@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PrivateRoute } from "ts/Layouts/PrivateRoute";
 import { logout } from "ts/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FlashMessage } from "ts/Components/FlashMessage";
 
 export const Dashboard = () => {
-    const [message, ] = useState<{ message: string }>(useLocation().state);
+    const [message, setMessage] = useState<{ message: string } | null>(useLocation().state);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // リロード時はフラッシュメッセージを非表示
+        window.addEventListener('load', () => setMessage(null));
+    });
+
     const handleLogout = async () => {
         const response: { message: string } = await logout();
         navigate("/login",  { state: { message: response.message }});

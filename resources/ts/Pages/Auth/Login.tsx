@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { GuestRoute } from "ts/Layouts/GuestRoute";
@@ -8,9 +8,15 @@ import { login } from "ts/api";
 import { FlashMessage } from "ts/Components/FlashMessage";
 
 export const Login = () => {
-    const [message, setMessage] = useState<{ message: string }>(useLocation().state);
+    const [message, setMessage] = useState<{ message: string } | null>(useLocation().state);
     const { control, handleSubmit, setError } = useForm<AuthUser>({ reValidateMode: "onSubmit" });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // リロード時はフラッシュメッセージを非表示
+        window.addEventListener('load', () => setMessage(null));
+    });
+
     const onSubmit: SubmitHandler<AuthUser> = async (loginUser) => {
         login(loginUser).then((response: { message: string }) => {
             setMessage({ message: response.message });
